@@ -1,6 +1,5 @@
 import { useParams, Link } from "react-router-dom";
 import { Row, Col, ListGroup, Image, Card, Button } from "react-bootstrap";
-import products from "../products";
 import Rating from "../components/Rating";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -90,3 +89,5 @@ const ProductScreen = () => {
 };
 
 export default ProductScreen;
+
+

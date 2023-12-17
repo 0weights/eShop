@@ -14,7 +14,7 @@ const app = express();
 
 connectToDb();
 
-app.use(cors());
+// app.use(cors());
 
 app.use("/api/product", productrRoute);
 
