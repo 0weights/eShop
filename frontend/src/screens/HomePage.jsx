@@ -1,7 +1,7 @@
 import { Row, Col } from "react-bootstrap"
 import Product from "../components/Product";
-import axios from 'axios';
-import { useEffect, useState } from "react";
+// import axios from 'axios';
+// import { useEffect, useState } from "react";
 import { useGetProductsQuery } from "../RTK/slices/productApiSlice";
 
 const HomePage = () => {

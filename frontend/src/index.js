@@ -6,7 +6,7 @@ import './assets/bootstrap.custom.css';
 import "./assets/index.css";
 import  HomeScreen from './screens/HomePage.jsx';
 import  ProductScreen from './screens/ProductScreen';
-import store from './RTK/store.js'
+import  store from './RTK/store.js'
 import { Provider } from 'react-redux';
 // import 'dotenv/config';
 
@@ -16,7 +16,6 @@ import {
   Route,
   RouterProvider
 } from  'react-router-dom';
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     // search is /, /product right cause the Route parent path is /
