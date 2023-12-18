@@ -1,8 +1,8 @@
 import { Row, Col } from "react-bootstrap"
 import Product from "../components/Product";
-// import axios from 'axios';
-// import { useEffect, useState } from "react";
 import { useGetProductsQuery } from "../RTK/slices/productApiSlice";
+import Loadder from "../components/Loadder.jsx";
+import Message from "../components/Message.jsx";
 
 const HomePage = () => {
   // search differenct between {products, setProductas} and [products, setProductas] //
@@ -17,18 +17,21 @@ const HomePage = () => {
   //     return axiosPromise.data;
   //   })();
   // }, [])
-  const {data: products, isLoading, isError} = useGetProductsQuery();
+  const {data: products, isLoading, isError, error} = useGetProductsQuery();
   return (
     <>
       {
-        isLoading ? <h1>loadding</h1> : isError ? {isError} : 
-        <Row>
-          {
-            products.map((product) => (
-              <Col sm={12} md={6} l={4} xl={3}><Product product={product} /></Col>
-            ))
-          }
-        </Row>
+        isLoading ? <Loadder/> : isError ? 
+          <Message variant="danger">
+            "Sorry something went wrong"
+          </Message>: 
+            <Row>
+              {
+                products.map((product) => (
+                  <Col sm={12} md={6} l={4} xl={3}><Product product={product} /></Col>
+                ))
+              }
+            </Row>
       }
     </>
   )

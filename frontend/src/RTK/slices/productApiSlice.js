@@ -11,7 +11,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
     }),
     getProduct : builder.query({
       query: (id) => ({
-          url : `/${PRODUCTS_URl}/${id}`
+          url : `${PRODUCTS_URl}/${id}`
         }),
         keepUnusedDataFor: 5,
     })
