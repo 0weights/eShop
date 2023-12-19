@@ -17,7 +17,7 @@ const HomePage = () => {
   //     return axiosPromise.data;
   //   })();
   // }, [])
-  const {data: products, isLoading, isError, error} = useGetProductsQuery();
+  const {data: products, isLoading, isError} = useGetProductsQuery();
   return (
     <>
       {
