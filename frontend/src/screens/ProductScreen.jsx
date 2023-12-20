@@ -8,7 +8,7 @@ import { useState } from "react";
 import { addToCart } from "../RTK/slices/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
+import { api } from "../RTK/slices/cartSlice";
 const ProductScreen = () => {
   const {id} = useParams();
   const {data : product , isLoading, isError} = useGetProductQuery(id);
@@ -17,6 +17,7 @@ const ProductScreen = () => {
   const [qty, setQty] = useState(1);
 
   const addToCartHandler = () => {
+    const lol = addToCart({...product, qty});
     dispatch(addToCart({...product, qty}));
     navigate('/cart');
   }

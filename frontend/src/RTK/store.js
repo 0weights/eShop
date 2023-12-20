@@ -6,9 +6,7 @@ import cartSliceReducer from './slices/cartSlice.js'
 
 const store = configureStore({
   reducer: {
-    // this line need to be rechecked when adding another reudcer
     [apiSlice.reducerPath] : apiSlice.reducer,
-    // first is the name of the state
     cart : cartSliceReducer,
 
   },
