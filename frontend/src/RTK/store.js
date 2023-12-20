@@ -9,7 +9,7 @@ const store = configureStore({
     // this line need to be rechecked when adding another reudcer
     [apiSlice.reducerPath] : apiSlice.reducer,
     // first is the name of the state
-    car : cartSliceReducer,
+    cart : cartSliceReducer,
 
   },
   middleware: (getDefaultMiddlewaer) => getDefaultMiddlewaer().concat(apiSlice.middleware),
