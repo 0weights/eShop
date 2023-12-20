@@ -4,6 +4,7 @@ import asyncHandler from '../middleware/asyncHandler.js';
 //@desc : geting all product 
 //@URI  : get /product/
 const getProducts = asyncHandler(async (req, res) =>{
+  console.log(localStorage)
   let product = await Product.find().limit(10);
   res.status(200).json(product);
 });

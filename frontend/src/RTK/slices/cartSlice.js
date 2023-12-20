@@ -4,6 +4,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // where is localStorage comefrom 
+// localStorage provided by the browser it's cliant side varaible
 // JSON vs json
 // 'key' : value vs key : value
 const initialState = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) :
@@ -29,6 +30,7 @@ const cartSlice = createSlice({
         state.cartItems = [...state.cartItems, item];
       }
       
+      // adding another proper yto the state
       state.itemsPrice = addDecimals(state.cartItems.reduce(
           // 0 is the default for the accumelator
           (acc,item) => acc + item.price * item.qty, 0
