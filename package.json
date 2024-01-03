@@ -10,8 +10,8 @@
     "server": "nodemon backend/server.js",
     "client": "npm run start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\" ",
-    "seed:start" : "node seeder.js",
-    "seed:destroy" : "node seeder.js -d"
+    "seed:start": "node seeder.js",
+    "seed:destroy": "node seeder.js -d"
   },
   "author": "sayed ashraf",
   "license": "ISC",
@@ -21,6 +21,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.2"
   },
   "devDependencies": {

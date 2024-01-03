@@ -3,11 +3,15 @@ const addDecimals = (num) => {
 }
 
 const addToCartPriceCalculations = (state) => {
+  state.count = state.cartItems.length;
   state.itemsPrice = addDecimals(state.cartItems.reduce(
-      (acc,item) => acc + item.price * item.qty, 0
+      (acc,item) => {
+        state.count += item.qty;
+        return acc + item.price * item.qty;
+      }, 0
     )
   )
-
+  
   state.shippingPrice = addDecimals(state.itemsPrice > 100 ? 0 : 10);
 
   state.taxPrice = addDecimals(Number( (0.15 * state.itemsPrice).toFixed(2)) );

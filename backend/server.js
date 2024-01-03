@@ -1,10 +1,12 @@
 // search node.js vs express //
-import express from "express";
+import express, { json } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import connectToDb from "./config/dp.js";
 import productrRoute from "./routes/productRoutes.js";
+import userRoute from "./routes/userRoute.js";
 import errorHanddler from "./middleware/errorHandler.js";
+import validateToken from "./middleware/verifyToken.js";
 
 dotenv.config();
 
@@ -16,9 +18,13 @@ connectToDb();
 
 
 // app.use(cors());
+// what is this both lines
+app.use(express.json());
+app.use(express.urlencoded({extended : true}));
+app.use(validateToken);
 
 app.use("/api/product", productrRoute);
-
+app.use("/api/users", userRoute)
 app.use(errorHanddler);
 // search product/:id vs /product/:id
 // app.get("/api/product/:id", (req, res) => {
