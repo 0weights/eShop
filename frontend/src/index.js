@@ -9,6 +9,7 @@ import  ProductScreen from './screens/ProductScreen';
 import  store from './RTK/store.js'
 import { Provider } from 'react-redux';
 import CartScreen from './screens/CartScreen.jsx';
+import LoginScreen from './screens/LoginScreen.jsx';
 // import 'dotenv/config';
 
 import {
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
       <Route index path="/" element={<HomeScreen />}/>
       <Route index path="/product" element={<HomeScreen />}/>
       <Route path="/product/:id" element={<ProductScreen/>}/>
+      <Route path="/login" element={<LoginScreen/>}/>
       <Route path="/cart" element={<CartScreen/>}/>
     </Route>
   )

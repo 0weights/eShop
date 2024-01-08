@@ -6,8 +6,7 @@ import connectToDb from "./config/dp.js";
 import productrRoute from "./routes/productRoutes.js";
 import userRoute from "./routes/userRoute.js";
 import errorHanddler from "./middleware/errorHandler.js";
-import validateToken from "./middleware/verifyToken.js";
-
+import cookieParser from "cookie-parser";
 dotenv.config();
 
 const port = process.env.PORT;
@@ -21,7 +20,7 @@ connectToDb();
 // what is this both lines
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
-app.use(validateToken);
+app.use(cookieParser());
 
 app.use("/api/product", productrRoute);
 app.use("/api/users", userRoute)
