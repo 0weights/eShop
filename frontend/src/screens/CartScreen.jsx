@@ -1,17 +1,18 @@
 import { useSelector } from "react-redux";
 import { Card, ListGroup } from "react-bootstrap"
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import {Row, Col} from "react-bootstrap";
 // diffrence between "" and '
 import Image from 'react-bootstrap/Image';
 import { addToCart, removeFromCart } from "../RTK/slices/cartSlice";
 import { useDispatch } from "react-redux";
-import { Form } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { FaTrash } from 'react-icons/fa';
 
 const CartScreen = () =>{
   const cartState = useSelector(state => state.cart);
   const dispatche = useDispatch();
+  const navigate = useNavigate();
   // why we make it async and why we didn't use await 
   const updateStateQty = async (item, updatedQty) => {
     // notice here item contining qty but when doing what i did below it update it cause it's exist
@@ -21,7 +22,9 @@ const CartScreen = () =>{
     // notice here item contining qty but when doing what i did below it update it cause it's exist
     dispatche(removeFromCart(itemId));
   }
-  console.log(cartState.cartItems);
+  const checkoutHandler = () => {
+    navigate('/login?redirect=/shipping');
+  };
   // what this kind of return first time to see it
   return (
     <>
@@ -67,12 +70,26 @@ const CartScreen = () =>{
         </Col>
         <Col md="4">
           <Card className="my-3 p-3">
-            <Card.Body>
-              <Card.Title className="subtotal">
-                Subtotal {cartState.count} items
-              </Card.Title>
-              <Card.Text>${cartState.totalPrice}</Card.Text>
-            </Card.Body>
+            <ListGroup variant='flush'>
+              <ListGroup.Item>
+                <Card.Body>
+                  <Card.Title className="subtotal">
+                    Subtotal {cartState.count} items
+                  </Card.Title>
+                  <Card.Text>${cartState.totalPrice}</Card.Text>
+                </Card.Body>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Button
+                  type='button'
+                  className='btn-block'
+                  disabled={cartState.count === 0}
+                  onClick={checkoutHandler}
+                >
+                  Proceed To Checkout
+                </Button>
+              </ListGroup.Item>
+            </ListGroup>
           </Card>
         </Col>
       </Row>

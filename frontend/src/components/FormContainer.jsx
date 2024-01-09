@@ -1,29 +1,16 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Form, Button } from 'react-bootstrap';
 
-const FormContainer = (formComponent) => {
+// why we put {} in funct paramter if you remove it it will not work
+const FormContainer = ({children}) => {
 
   return(
     <Container>
-      <Row>
+      {/* // search for it */}
+      <Row className='justify-content-md-center'>
         <Col xs={12} md={6}>
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
-
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-          </Form>
+          {children}
         </Col>
       </Row>
     </Container>
