@@ -1,23 +1,21 @@
-import FormContainer from "../components/FormContainer";
+import FormContainer from "../components/FormContainer.jsx";
 import { Form, Button, Col, Row} from 'react-bootstrap';
 import { useState, useEffect } from "react";
 import {Link, redirectDocument, useLocation, useNavigate} from 'react-router-dom';
-import {useAuthMutation} from "../RTK/slices/userApiSlice.js";
+import {useRegisterMutation} from "../RTK/slices/userApiSlice.js";
 import { setCrediantels } from "../RTK/slices/authSlice.js";
 import Loadder from "../components/Loadder.jsx";
-// react, react-route hooks write it down
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
-const LoginScreen = () => {
-
+const RegisterScreen = () => {
   const {userInfo} = useSelector((state) => state.auth);
-  
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
   const navigate = useNavigate();
   
-  const [auth, {isLoadding}] = useAuthMutation();
+  const [register, {isLoadding}] = useRegisterMutation();
   
   const dispatch = useDispatch();
   
@@ -27,19 +25,13 @@ const LoginScreen = () => {
   console.log(redirect)
   // console.log(redirect)
   // why we ues this [userInfo, redirect, navigate] in the opetions part 
-  // explaining useEffect
-  // home  -> login
-  // login -> home
-  // checkout -> login
   // 
   useEffect(()=>{
-    console.log(userInfo, "sladfkj",redirect)
     if(userInfo != null)                                                                                                        
       navigate('/');
     if(redirect != null)
       navigate(`/${redirect}`)
   }, [userInfo, redirect])
-
 
   const submitHanddler = async (e) => {
     // why we used this
@@ -47,7 +39,7 @@ const LoginScreen = () => {
     // why we use try & catch is this mean that i need to spam try catch using andy function
     try{
       // what is unwrap
-      const res = await auth({email, password}).unwrap();
+      const res = await register({name, email, password}).unwrap();
       // what is the ... dots and why we do it and what is , 
       // dispatch(setCrediantels({...res, }))
       // there is no need to use {...or , }
@@ -63,8 +55,19 @@ const LoginScreen = () => {
   return (
     <>
       <FormContainer>
-        <h1>Sign In</h1>
+        <h1>Regiser</h1>
         <Form onSubmit={submitHanddler}>
+
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Name</Form.Label>
+            <Form.Control 
+              type="text" 
+              placeholder="Enter Name" 
+              value={name}
+              onChange={(e)=>{setName(e.target.value)}}
+              />
+          </Form.Group>
+
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control 
@@ -86,14 +89,14 @@ const LoginScreen = () => {
           </Form.Group>
 
           <Button variant="primary" type="submit" disabled={isLoadding}>
-            Log In
+            Register
           </Button>
           {isLoadding ? <Loadder/> : ''}
         </Form>
         <Row py='3'>
           <Col>
-            Don't have an account? 
-            <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>Register</Link>
+            already have an account! 
+            <Link to={'/logIn'}>Log In</Link>
           </Col>
         </Row>
       </FormContainer>
@@ -101,4 +104,4 @@ const LoginScreen = () => {
   );
 }
 
-export default LoginScreen;
+export default RegisterScreen;

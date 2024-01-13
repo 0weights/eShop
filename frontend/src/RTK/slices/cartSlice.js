@@ -7,7 +7,7 @@ import addToCartPriceCalculations from '../utilities/cartUtility'
 // 'key' : value vs key : value
 // to search why we choose cart is that cuase the reducer name is cart which is the state
 const initialState = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) :
-  {cartItems : [], count : 0};
+  {cartItems : [], count : 0, totalPrice : 0.00};
 
 // check if the card has data in the local storage
 const cartSlice = createSlice({
@@ -25,7 +25,7 @@ const cartSlice = createSlice({
         state.cartItems = [...state.cartItems, item];
       }
       // why we use return the funtion not returning anything OK why even returuing
-      return addToCartPriceCalculations(state);
+      state = addToCartPriceCalculations(state);
     }, 
     removeFromCart : (state, action) => {
       const itemId = action.payload;

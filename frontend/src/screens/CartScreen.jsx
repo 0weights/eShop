@@ -15,6 +15,7 @@ const CartScreen = () =>{
   const navigate = useNavigate();
   // why we make it async and why we didn't use await 
   const updateStateQty = async (item, updatedQty) => {
+    
     // notice here item contining qty but when doing what i did below it update it cause it's exist
     dispatche(addToCart({...item, qty : updatedQty}))
   }

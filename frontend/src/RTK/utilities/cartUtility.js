@@ -3,7 +3,8 @@ const addDecimals = (num) => {
 }
 
 const addToCartPriceCalculations = (state) => {
-  state.count = state.cartItems.length;
+  state.count = 0;
+  // console.log(typeof(state.cartItems[0].qty));
   state.itemsPrice = addDecimals(state.cartItems.reduce(
       (acc,item) => {
         state.count += item.qty;
@@ -12,16 +13,16 @@ const addToCartPriceCalculations = (state) => {
     )
   )
   
-  state.shippingPrice = addDecimals(state.itemsPrice > 100 ? 0 : 10);
+  state.shippingPrice = addDecimals(state.itemsPrice > 100 || state.itemsPrice == 0 ? 0 : 10);
 
   state.taxPrice = addDecimals(Number( (0.15 * state.itemsPrice).toFixed(2)) );
-
+  
   state.totalPrice = (
     Number(state.itemsPrice) + Number(state.shippingPrice) + Number(state.taxPrice)
   ).toFixed(2);
 
   localStorage.setItem('cart', JSON.stringify(state))
-  
+  console.log(state.itemsPrice)
   return state;
 }
 
