@@ -33,7 +33,6 @@ const LoginScreen = () => {
   // checkout -> login
   // 
   useEffect(()=>{
-    console.log(userInfo, "sladfkj",redirect)
     if(userInfo != null)                                                                                                        
       navigate('/');
     if(redirect != null)
@@ -63,7 +62,7 @@ const LoginScreen = () => {
   return (
     <>
       <FormContainer>
-        <h1>Sign In</h1>
+        <h1>Log In</h1>
         <Form onSubmit={submitHanddler}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>

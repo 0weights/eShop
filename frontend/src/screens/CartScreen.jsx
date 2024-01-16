@@ -24,7 +24,7 @@ const CartScreen = () =>{
     dispatche(removeFromCart(itemId));
   }
   const checkoutHandler = () => {
-    navigate('/login?redirect=/shipping');
+    navigate('/shipping');
   };
   // what this kind of return first time to see it
   return (

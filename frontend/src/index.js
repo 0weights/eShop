@@ -10,6 +10,8 @@ import { Provider } from 'react-redux';
 import CartScreen from './screens/CartScreen.jsx';
 import LoginScreen from './screens/LoginScreen.jsx';
 import RegisterScreen from './screens/RegisterScreen.jsx';
+import ShippingScreen from './screens/ShippingScreen.jsx';
+import { PrivateRoute } from './components/PrivateRoute.jsx';
 
 import {
   createBrowserRouter,
@@ -17,6 +19,7 @@ import {
   Route,
   RouterProvider
 } from  'react-router-dom';
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     // search is /, /product right cause the Route parent path is /
@@ -25,12 +28,16 @@ const router = createBrowserRouter(
       <Route index path="/product" element={<HomeScreen />}/>
       <Route path="/product/:id" element={<ProductScreen/>}/>
       <Route path="/register" element={<RegisterScreen/>}/>
-
       <Route path="/login" element={<LoginScreen/>}/>
       <Route path="/cart" element={<CartScreen/>}/>
+
+      <Route element={<PrivateRoute />}>
+        <Route path="/shipping" element={<ShippingScreen/>}/>
+      </Route>
     </Route>
   )
 )
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
