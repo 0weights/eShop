@@ -7,7 +7,15 @@ import addToCartPriceCalculations from '../utilities/cartUtility'
 // 'key' : value vs key : value
 // to search why we choose cart is that cuase the reducer name is cart which is the state
 const initialState = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) :
-  {cartItems : [], count : 0, totalPrice : 0.00, addressInfo : {}};
+  {
+    cartItems : [],
+    count : 0,
+    totalPrice : 0.00,
+    addressInfo : {},
+    checkOut : {
+      step : "address"
+    } 
+  };
 
 // check if the card has data in the local storage
 const cartSlice = createSlice({
@@ -34,16 +42,24 @@ const cartSlice = createSlice({
       localStorage.setItem("cart", JSON.stringify(state));
     },
 
+    updateCheckOutStep : (state, action) => {
+      const {step} = action.payload;
+      console.log(state);
+      state.checkOut.step = step;
+      localStorage.setItem("cart", JSON.stringify(state));
+    },
+
     removeFromCart : (state, action) => {
       const itemId = action.payload;
-      state.cartItems = state.cartItems.filter((x) => x._id != itemId);
+      // why we have to use !== not != i change it to != and js extension will make yellow underLine
+      state.cartItems = state.cartItems.filter((x) => x._id !== itemId);
       return addToCartPriceCalculations(state);
     }
   }
 })
 
 
-export const {addToCart, addAddressInfo, removeFromCart} = cartSlice.actions;
+export const {addToCart, addAddressInfo, updateCheckOutStep,  removeFromCart} = cartSlice.actions;
 
 // export reducer to inject it into hte store
 export default cartSlice.reducer
