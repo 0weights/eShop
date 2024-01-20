@@ -1,12 +1,14 @@
 // search node.js vs express //
 import express, { json } from "express";
 import dotenv from "dotenv";
-import cors from "cors";
 import connectToDb from "./config/dp.js";
 import productrRoute from "./routes/productRoutes.js";
 import userRoute from "./routes/userRoute.js";
 import errorHanddler from "./middleware/errorHandler.js";
 import cookieParser from "cookie-parser";
+// there is no orderRouter in the file but we manage to import it how
+import orderRouter from './routes/orderRoute.js'
+
 dotenv.config();
 
 const port = process.env.PORT;
@@ -24,6 +26,7 @@ app.use(cookieParser());
 
 app.use("/api/product", productrRoute);
 app.use("/api/users", userRoute)
+app.use("/api/order", orderRouter)
 app.use(errorHanddler);
 // search product/:id vs /product/:id
 // app.get("/api/product/:id", (req, res) => {

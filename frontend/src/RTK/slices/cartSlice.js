@@ -13,7 +13,11 @@ const initialState = localStorage.getItem('cart') ? JSON.parse(localStorage.getI
     totalPrice : 0.00,
     addressInfo : {},
     checkOut : {
-      step : "address"
+      steps : {
+        "payment"    : true,
+        "placeOrder" : true
+      },
+      payment : "paypal"
     } 
   };
 
@@ -42,10 +46,16 @@ const cartSlice = createSlice({
       localStorage.setItem("cart", JSON.stringify(state));
     },
 
-    updateCheckOutStep : (state, action) => {
+    addPaymentInfo : (state, action) => {
+      const paymentInfo = action.payload.payment;
+      state.checkOut.payment = paymentInfo;
+      localStorage.setItem("cart", JSON.stringify(state));
+    },
+
+    updateCheckOutSteps : (state, action) => {
       const {step} = action.payload;
       console.log(state);
-      state.checkOut.step = step;
+      state.checkOut.steps = {...state.checkOut.steps, [step] : false};
       localStorage.setItem("cart", JSON.stringify(state));
     },
 
@@ -58,8 +68,7 @@ const cartSlice = createSlice({
   }
 })
 
-
-export const {addToCart, addAddressInfo, updateCheckOutStep,  removeFromCart} = cartSlice.actions;
+export const {addToCart, addAddressInfo, addPaymentInfo, updateCheckOutSteps,  removeFromCart} = cartSlice.actions;
 
 // export reducer to inject it into hte store
 export default cartSlice.reducer

@@ -1,80 +1,57 @@
 import FormContainer from "../components/FormContainer.jsx";
-import { Form, Button} from 'react-bootstrap';
-import { useState } from "react";
+import { Form, Button, Col} from 'react-bootstrap';
 import { useNavigate} from 'react-router-dom';
-import { addAddressInfo } from "../RTK/slices/cartSlice.js";
+import { addPaymentInfo, updateCheckOutSteps } from "../RTK/slices/cartSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import NavigationTabs from "../components/NavigationTabs.jsx";
+import { useEffect } from "react";
 
 const PaymentScreen = () => {
-  const {addressInfo, checkOut} = useSelector((state) => state.cart);
-
-  const [address, setAddress] = useState(addressInfo.address || "");
-  const [city, setCity] = useState(addressInfo.city || "");
-  const [postalCode, setPostalCode] = useState(addressInfo.postalCode || "");
-  const [country, setCountry] = useState(addressInfo.country || "");
-  
+  const {payment} = useSelector((state)=>state.cart.checkOut.steps)
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const submitHanddler = async (e) => {
     e.preventDefault();
-    dispatch(addAddressInfo({address, city, postalCode, country}));
-    navigate("/payment");
+    dispatch(addPaymentInfo({payment : "paypal"}));
+    dispatch(updateCheckOutSteps({step : 'placeOrder'}));
+
+    navigate("/placeorder");
   }
+  //if i replaced use effect with this code it will not work
+  // if(payment){
+  //   console.log("navigate to shipping", navigate("/shipping"));
+  // }
+  useEffect(()=>{
+    if(payment){
+      navigate("/shipping");
+    }
+  }, [payment, navigate])
   return (
-    <>
-      <FormContainer>
-        <NavigationTabs currentTab={checkOut.step} />
-        <h1>Payment</h1>
-        <Form onSubmit={submitHanddler}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Address</Form.Label>
-            <Form.Control 
-              type="text" 
-              placeholder="Enter Address" 
-              value={address}
-              onChange={(e)=>{setAddress(e.target.value)}}
-              />
-          </Form.Group>
+    <FormContainer>
+      <NavigationTabs/>
+      <h1>Payment Method</h1>
+      <Form onSubmit={submitHanddler}>
+        <Form.Group>
+          <Form.Label as='legend'>Select Method</Form.Label>
+          <Col>
+            <Form.Check
+              className='my-2'
+              type='radio'
+              label='PayPal or Credit Card'
+              id='PayPal'
+              name='paymentMethod'
+              value='PayPal'
+              checked
+            ></Form.Check>
+          </Col>
+        </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>City</Form.Label>
-            <Form.Control 
-              type="text" 
-              placeholder="Enter City" 
-              value={city}
-              onChange={(e)=>{setCity(e.target.value)}}
-              />
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Postal Code</Form.Label>
-            <Form.Control 
-              type="number" 
-              placeholder="Enter PostalCode"
-              value={postalCode}
-              onChange={(e)=>{setPostalCode(e.target.value)}}
-              />
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Country</Form.Label>
-            <Form.Control 
-              type="text" 
-              pattern="[A-Za-z]+"
-              placeholder="Enter Country"
-              value={country}
-              onChange={(e)=>{setCountry(e.target.value)}}
-              />
-          </Form.Group>
-
-          <Button variant="primary" type="submit">
-            Procced
-          </Button>
-        </Form>
-      </FormContainer>
-    </>
+        <Button type='submit' variant='primary'>
+          Continue
+        </Button>
+      </Form>
+    </FormContainer>
   );
 }
 

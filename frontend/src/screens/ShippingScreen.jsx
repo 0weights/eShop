@@ -1,35 +1,34 @@
 import FormContainer from "../components/FormContainer.jsx";
 import { Form, Button} from 'react-bootstrap';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate} from 'react-router-dom';
 import { addAddressInfo } from "../RTK/slices/cartSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import NavigationTabs from "../components/NavigationTabs.jsx";
-import { updateCheckOutStep } from "../RTK/slices/cartSlice.js";
+import { updateCheckOutSteps } from "../RTK/slices/cartSlice.js";
 
 const ShippingScreen = () => {
-  const {addressInfo, checkOut} = useSelector((state) => state.cart);
-  
+  const {addressInfo} = useSelector((state) => state.cart);
   const [address, setAddress] = useState(addressInfo.address || "");
   const [city, setCity] = useState(addressInfo.city || "");
   const [postalCode, setPostalCode] = useState(addressInfo.postalCode || "");
   const [country, setCountry] = useState(addressInfo.country || "");
-  console.log("sdaf", checkOut)
-  const [step, setStep] = useState(checkOut.step)
+  // const [steps, setSteps] = useState(checkOut.steps)
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const submitHanddler = async (e) => {
     e.preventDefault();
     dispatch(addAddressInfo({address, city, postalCode, country}));
-    dispatch(updateCheckOutStep({step : 'payment'}))
+    dispatch(updateCheckOutSteps({step : 'payment'}));
     navigate("/payment");
   }
 
   return (
     <>
       <FormContainer>
-        <NavigationTabs currentTab={step} />
+        <NavigationTabs/>
         <h1>Shipping Address</h1>
         <Form onSubmit={submitHanddler}>
         <Form.Group className="mb-3" controlId="formBasicEmail">

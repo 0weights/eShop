@@ -1,7 +1,7 @@
 import FormContainer from "../components/FormContainer";
 import { Form, Button, Col, Row} from 'react-bootstrap';
 import { useState, useEffect } from "react";
-import {Link, redirectDocument, useLocation, useNavigate} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {useAuthMutation} from "../RTK/slices/userApiSlice.js";
 import { setCrediantels } from "../RTK/slices/authSlice.js";
 import Loadder from "../components/Loadder.jsx";
@@ -37,7 +37,8 @@ const LoginScreen = () => {
       navigate('/');
     if(redirect != null)
       navigate(`/${redirect}`)
-  }, [userInfo, redirect])
+    // why including navigate 
+  }, [userInfo, redirect, navigate])
 
 
   const submitHanddler = async (e) => {

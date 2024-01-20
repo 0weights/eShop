@@ -1,31 +1,32 @@
-import {Tabs, Tab} from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { updateCheckOutStep } from '../RTK/slices/cartSlice';
-import { useNavigate } from 'react-router-dom';
+import {Navbar, Container, Nav} from 'react-bootstrap';
+import { LinkContainer} from "react-router-bootstrap";
+import { useSelector } from 'react-redux';
 
-const NavigationTabs = ({currentTab}) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate()
-
-  const updateStep = (step) => {
-    console.log("here", step)
-    dispatch(updateCheckOutStep({step}))
-    navigate(`/${step}`);
-  }
+const NavigationTabs = () => {  
+  const {steps} = useSelector((state)=>state.cart.checkOut);
+  console.log("navigation", steps.payment);
   return (
-    <Tabs
-      defaultActiveKey={currentTab}
-      id="uncontrolled-tab-example"
-      className="mb-3"
-      onSelect={(step)=>updateStep(step)}
-    >
-      <Tab eventKey="shipping" title="Address">
-        Tab content for Home
-      </Tab>
-      <Tab eventKey="payment" title="Payment">
-        Tab content for Payment
-      </Tab>
-    </Tabs>
+    <Navbar expand="lg" className='justify-content-center mb-3'>
+      <Container>
+        <LinkContainer to="/shipping">
+          <Nav.Link >Shipping</Nav.Link>
+        </LinkContainer>
+
+        <LinkContainer 
+          to="/payment" 
+          disabled={steps.payment}
+        >
+          <Nav.Link >Payment</Nav.Link>
+        </LinkContainer>
+
+        <LinkContainer 
+          to="/placeorder"
+          disabled={steps.placeOrder}
+        >
+          <Nav.Link >Place Order</Nav.Link >
+        </LinkContainer>
+      </Container>
+    </Navbar>
   )
 }
 
