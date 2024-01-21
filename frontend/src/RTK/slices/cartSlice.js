@@ -64,11 +64,24 @@ const cartSlice = createSlice({
       // why we have to use !== not != i change it to != and js extension will make yellow underLine
       state.cartItems = state.cartItems.filter((x) => x._id !== itemId);
       return addToCartPriceCalculations(state);
-    }
+    }, 
+
+    clearCartItems: (state, action) => {
+      state.cartItems = [];
+      localStorage.setItem('cart', JSON.stringify(state));
+    },
+
+
   }
 })
 
-export const {addToCart, addAddressInfo, addPaymentInfo, updateCheckOutSteps,  removeFromCart} = cartSlice.actions;
+export const {
+  addToCart,
+  addAddressInfo,
+  addPaymentInfo,
+  updateCheckOutSteps,
+  removeFromCart
+} = cartSlice.actions;
 
 // export reducer to inject it into hte store
 export default cartSlice.reducer
