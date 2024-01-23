@@ -1,10 +1,17 @@
 import asyncHandler from '../middleware/asyncHandler.js';
+import Order from '../models/OrderModel.js';
 
 // @desc    Create new order
 // @route   POST /api/orders
 // @access  Private
 const addOrderItems = asyncHandler(async (req, res) => {
-  res.send('add order')
+  // get data
+  // res.send(req.id);
+  const newOrder = new Order({user : req.user._id,...req.body});
+  console.log("new Order", newOrder);
+  await newOrder.save();
+  res.status(201).json({"message" : "order created"});
+  // insert data
 });
 
 // @desc    Get logged in user orders

@@ -38,7 +38,7 @@ app.use(errorHanddler);
 //   let id = req.params.id;
 //   // search why not products.map((product)=>{product._id == id);
 //   // search understad the flow of map like and return
-//   // let productData = products.map((product)=>{if(product._id == id)  return product});                    
+//   // let productData = products.map((product)=>{if(product._id =.ss= id)  return product});                    
 //   // let productData = products.find((product)=>{if(product._id == id)  return product});
 //   let productData = products.find((product) => product._id == id);
 //   if (productData !== null) res.json(productData);

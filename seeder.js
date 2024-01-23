@@ -25,7 +25,7 @@ const initializeDb = async() => {
     ))
     await Product.insertMany(productsWithAdmin);
     // search inverse
-    console.log('Database Initialization Successfully'.green.inverse);
+      console.log('Database Initialization Successfully'.green.inverse);
 
   }
   catch(error){

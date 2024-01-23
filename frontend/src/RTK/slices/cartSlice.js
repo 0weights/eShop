@@ -17,7 +17,7 @@ const initialState = localStorage.getItem('cart') ? JSON.parse(localStorage.getI
         "payment"    : true,
         "placeOrder" : true
       },
-      payment : "paypal"
+      paymentMethod : "paypal"
     } 
   };
 
@@ -68,6 +68,8 @@ const cartSlice = createSlice({
 
     clearCartItems: (state, action) => {
       state.cartItems = [];
+      state.count = 0;
+      state.totalPrice = 0.00;
       localStorage.setItem('cart', JSON.stringify(state));
     },
 
@@ -80,7 +82,8 @@ export const {
   addAddressInfo,
   addPaymentInfo,
   updateCheckOutSteps,
-  removeFromCart
+  removeFromCart,
+  clearCartItems
 } = cartSlice.actions;
 
 // export reducer to inject it into hte store
